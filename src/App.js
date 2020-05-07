@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Header, Container } from 'semantic-ui-react'
+import { Router } from "@reach/router"
+import Planets from './Planets';
+import Blog from './Blog';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+class App extends React.Component {
+  state={
+    clicked: 0
+  }
+
+  updateClickCount() {
+    this.setState({clicked: this.state.clicked + 1});
+  }
+
+  render() {
+    return (
+      <Container>
+        <Router>
+          <Blog
+            buttonsClicked={this.state.clicked}
+            path="/"
+          />
+          <Planets
+            buttonsClicked={this.state.clicked}
+            path="planets"
+          />
+        </Router>
+        <Header>Footer</Header>
+        <button 
+          onClick={() => this.updateClickCount()}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+          Click me
+        </button>
+      </Container>
+    )
+  }
 }
 
 export default App;
